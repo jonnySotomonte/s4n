@@ -6,13 +6,13 @@ public class Drone {
 
   private int id;
   private Location location;
-  private List<String> deliveryPaths;
+  private List<String> paths;
 
-  public Drone(int id, List<String> deliveryPaths) {
+  public Drone(int id, List<String> paths) {
     Location initialLocation = new Location(0,0, Orientation.N);
     this.id = id;
     this.location = initialLocation;
-    this.deliveryPaths = deliveryPaths;
+    this.paths = paths;
   }
 
   public int getId() {
@@ -31,11 +31,11 @@ public class Drone {
     this.location = location;
   }
 
-  public List<String> getDeliveryPaths() {
-    return deliveryPaths;
+  public List<String> getPaths() {
+    return paths;
   }
 
-  public void setDeliveryPaths(List<String> deliveryPaths) {
-    this.deliveryPaths = deliveryPaths;
+  public void setPaths(List<String> paths) {
+    this.paths = paths;
   }
 }

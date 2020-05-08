@@ -28,7 +28,7 @@ public class Main {
       }
       executorService.shutdown();
     } catch (IOException e) {
-      logger.info(
+      logger.error(
           "There was an error reading the configuration file named application.properties, caused by: {}",
           e.getMessage());
     }
