@@ -8,7 +8,7 @@ public class DroneLocationHandler {
   private static final String TURN_TO_LEFT = "I";
   private static final String TURN_TO_RIGHT = "D";
 
-  private OrientationState orientationState = new NorthOrientation();
+  private OrientationState orientationState = NorthOrientation.getInstance();
 
   public Location getNewLocation(Location location, int maxBlocksAround, String path) {
     Location newLocation = new Location(location.getX(), location.getY(), location.getOrientation());

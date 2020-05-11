@@ -6,6 +6,17 @@ import com.s4n.test.model.Orientation;
 
 public class WestOrientation implements OrientationState {
 
+  private static OrientationState instance;
+
+  private WestOrientation() {
+  }
+
+  public static OrientationState getInstance() {
+    if(instance == null)
+      instance =  new WestOrientation();
+    return instance;
+  }
+
   @Override
   public void advance(Location location, int maxBlocksAround) {
     int X = location.getX();
@@ -21,12 +32,12 @@ public class WestOrientation implements OrientationState {
   @Override
   public void turnToLeft(Location location, DroneLocationHandler handler) {
     location.setOrientation(Orientation.S);
-    handler.setOrientationState(new SouthOrientation());
+    handler.setOrientationState(SouthOrientation.getInstance());
   }
 
   @Override
   public void turnToRight(Location location, DroneLocationHandler handler) {
     location.setOrientation(Orientation.N);
-    handler.setOrientationState(new NorthOrientation());
+    handler.setOrientationState(NorthOrientation.getInstance());
   }
 }
