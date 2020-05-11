@@ -7,15 +7,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class FileReaderUtils {
 
-  private static final Logger logger = LoggerFactory.getLogger(FileReaderUtils.class);
-
   public List<String> getDeliveryPaths(int droneId, int maxDeliveries) throws IOException {
-    logger.info("Getting the delivery paths for drone {}", droneId);
     File file = getFile(droneId);
     return readPathsInFile(file, maxDeliveries);
   }

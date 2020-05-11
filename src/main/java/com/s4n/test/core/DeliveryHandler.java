@@ -19,6 +19,8 @@ public class DeliveryHandler {
 
   public void doDelivery(int droneId, int maxDeliveries, int maxBlocksAround) {
     try {
+      String threadName = Thread.currentThread().getName();
+      logger.info("Executing thread {} for drone {}", threadName, droneId);
       List<String> paths = fileReaderUtils.getDeliveryPaths(droneId, maxDeliveries);
       Drone drone = new Drone(droneId, paths);
       locationHandler = new DroneLocationHandler();

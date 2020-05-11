@@ -18,13 +18,11 @@ public class Main {
 
     try {
       Properties properties = initializeProperties();
-      DeliveryHandler handler = new DeliveryHandler();
       int drones = Integer.parseInt(properties.getProperty("drones"));
-      int deliveriesPerDrone = Integer.parseInt(properties.getProperty("deliveries"));
-      int maxBlocksAround = Integer.parseInt(properties.getProperty("blocks.around"));
       ExecutorService executorService = Executors.newFixedThreadPool(drones);
       for (int i=1; i<=drones; i++) {
-        handler.doDelivery(i, deliveriesPerDrone, maxBlocksAround);
+        Runnable worker = new MyRunnable(i);
+        executorService.execute(worker);
       }
       executorService.shutdown();
     } catch (IOException e) {
@@ -41,6 +39,32 @@ public class Main {
       assert resourceStream != null;
       properties.load(resourceStream);
       return properties;
+    }
+  }
+
+  public static class MyRunnable implements Runnable{
+
+    private final int droneId;
+
+    public MyRunnable(int droneId) {
+      this.droneId = droneId;
+    }
+
+    @Override
+    public void run() {
+      try {
+        Properties properties = initializeProperties();
+        int deliveriesPerDrone = Integer.parseInt(properties.getProperty("deliveries"));
+        int maxBlocksAround = Integer.parseInt(properties.getProperty("blocks.around"));
+
+        DeliveryHandler handler = new DeliveryHandler();
+        handler.doDelivery(droneId, deliveriesPerDrone, maxBlocksAround);
+      }
+      catch (IOException e) {
+          logger.error(
+              "There was an error reading the configuration file named application.properties, caused by: {}",
+              e.getMessage());
+        }
     }
   }
 
